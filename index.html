@@ -43,6 +43,7 @@
         .yes-btn {
             background-color: #e91e63;
             color: white;
+            animation: heartbeat 1.5s infinite ease-in-out;
         }
 
         .no-btn {
@@ -50,78 +51,45 @@
             color: white;
             position: absolute;
         }
-        .yes-btn {
-    background-color: #e91e63;
-    color: white;
-    animation: heartbeat 1.5s infinite ease-in-out;
-}
-.share-btn {
-        background-color: #ff4081;
-        color: white;
-        margin-top: 20px;
-    }
 
-@keyframes heartbeat {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-
-        /* Floating hearts */
-        .heart {
-            position: absolute;
-            color: red;
-            font-size: 20px;
-            animation: floatHearts 5s infinite ease-in-out;
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
-        @keyframes floatHearts {
-            0% { transform: translateY(0px) rotate(0deg); opacity: 1; }
-            50% { transform: translateY(-100px) rotate(15deg); opacity: 0.7; }
-            100% { transform: translateY(-200px) rotate(-15deg); opacity: 0; }
+        #message {
+            display: none;
+            font-size: 40px;
+            color: #e91e63;
+            margin-top: 20%;
+            text-shadow: 2px 2px 5px #000;
         }
-        @keyframes floatHearts {
-    0% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 1; }
-    50% { transform: translateY(-100px) translateX(30px) rotate(15deg); opacity: 0.7; }
-    100% { transform: translateY(-200px) translateX(-30px) rotate(-15deg); opacity: 0; }
-}
-
     </style>
 </head>
 <body>
 
-    <!-- Floating Hearts -->
-    <script>
-        function createHeart() {
-            let heart = document.createElement("div");
-            heart.innerHTML = "❤️";
-            heart.classList.add("heart");
-            heart.style.left = Math.random() * window.innerWidth + "px";
-            heart.style.top = window.innerHeight + "px";
-            heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
-            heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-            document.body.appendChild(heart);
-
-            setTimeout(() => { heart.remove(); }, 5000);
-        }
-
-        setInterval(createHeart, 500);
-    </script>
-
-    <div class="container">
+    <div class="container" id="proposalBox">
         <h2>Will you be my Valentine? 💕</h2>
         <button class="btn yes-btn" onclick="sayYes()">Yes Solra Venna ❤️</button>
         <button class="btn no-btn" id="noBtn">Mudiyathu Podi 💔</button>
-        <audio id="loveSound">
-            <source src="https://drive.google.com/file/d/1-WaWdbuM4MVFte5G65pjZiKtEswFK2ct/view?usp=drive_link" type="audio/mpeg">
-        </audio>
-       
     </div>
+
+    <!-- Message Display After Clicking Yes -->
+    <h1 id="message">Hold on... ❤️</h1>
+
+    <!-- Background Music (Plays Continuously) -->
+    <audio id="bgMusic" loop autoplay preload="auto">
+        <source src="bgm2.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
         const noBtn = document.getElementById("noBtn");
+        const bgMusic = document.getElementById("bgMusic");
+        const proposalBox = document.getElementById("proposalBox");
+        const message = document.getElementById("message");
 
+        // Moving "No" button
         noBtn.addEventListener("mouseover", function() {
             let x = Math.random() * (window.innerWidth - 100);
             let y = Math.random() * (window.innerHeight - 50);
@@ -130,22 +98,27 @@
         });
 
         function sayYes() {
-            document.body.innerHTML = `<h1 style="color:#e91e63; font-size: 40px; margin-top:20%; text-shadow: 2px 2px 5px #000;">Yay! 😍 Happy Valentine's Day! ❤️</h1>`;
-        }
-       
-    
-    function sayYes() {
-        document.getElementById("loveSound").play(); // Play sound
-        document.body.innerHTML = `<h1 style="color:#e91e63; font-size: 40px; margin-top:20%; text-shadow: 2px 2px 5px #000;">
-            Hold on... ❤️
-        </h1>`;
+            // Hide the proposal container
+            proposalBox.style.display = "none";
 
-        setTimeout(() => {
-            document.body.innerHTML = `<h1 style="color:#e91e63; font-size: 40px; margin-top:20%; text-shadow: 2px 2px 5px #000;">
-                I love you! 😍 Forever & Always! 💖
-            </h1>`;
-        }, 5000); // 5-second delay
-    }
+            // Show the "Hold on..." message
+            message.style.display = "block";
+
+            setTimeout(() => {
+                // Update message after 5 seconds
+                message.innerHTML = "I love you! 😍 Forever & Always! 💖";
+            }, 5000);
+        }
+
+        // Ensure background music plays automatically
+        document.addEventListener("click", function() {
+            if (bgMusic.paused) {
+                bgMusic.play().catch(() => {
+                    console.log("Autoplay blocked! Please click again.");
+                });
+            }
+        }, { once: true });
+
     </script>
 
 </body>
