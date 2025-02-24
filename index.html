@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Proposal ❤️</title>
+    <style>
+        body {
+            background-color: #fce4ec;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+
+        h2 {
+            color: #e91e63;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .yes-btn {
+            background-color: #e91e63;
+            color: white;
+        }
+
+        .no-btn {
+            background-color: #d32f2f;
+            color: white;
+            position: absolute;
+        }
+        .yes-btn {
+    background-color: #e91e63;
+    color: white;
+    animation: heartbeat 1.5s infinite ease-in-out;
+}
+.share-btn {
+        background-color: #ff4081;
+        color: white;
+        margin-top: 20px;
+    }
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+
+        /* Floating hearts */
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            animation: floatHearts 5s infinite ease-in-out;
+        }
+
+        @keyframes floatHearts {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-100px) rotate(15deg); opacity: 0.7; }
+            100% { transform: translateY(-200px) rotate(-15deg); opacity: 0; }
+        }
+        @keyframes floatHearts {
+    0% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 1; }
+    50% { transform: translateY(-100px) translateX(30px) rotate(15deg); opacity: 0.7; }
+    100% { transform: translateY(-200px) translateX(-30px) rotate(-15deg); opacity: 0; }
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Floating Hearts -->
+    <script>
+        function createHeart() {
+            let heart = document.createElement("div");
+            heart.innerHTML = "❤️";
+            heart.classList.add("heart");
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = window.innerHeight + "px";
+            heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+            heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+            document.body.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        setInterval(createHeart, 500);
+    </script>
+
+    <div class="container">
+        <h2>Will you be my Valentine? 💕</h2>
+        <button class="btn yes-btn" onclick="sayYes()">Yes Solra Venna ❤️</button>
+        <button class="btn no-btn" id="noBtn">Mudiyathu Podi 💔</button>
+        <audio id="loveSound">
+            <source src="https://drive.google.com/file/d/1-WaWdbuM4MVFte5G65pjZiKtEswFK2ct/view?usp=drive_link" type="audio/mpeg">
+        </audio>
+       
+    </div>
+
+    <script>
+        const noBtn = document.getElementById("noBtn");
+
+        noBtn.addEventListener("mouseover", function() {
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        });
+
+        function sayYes() {
+            document.body.innerHTML = `<h1 style="color:#e91e63; font-size: 40px; margin-top:20%; text-shadow: 2px 2px 5px #000;">Yay! 😍 Happy Valentine's Day! ❤️</h1>`;
+        }
+       
+    
+    function sayYes() {
+        document.getElementById("loveSound").play(); // Play sound
+        document.body.innerHTML = `<h1 style="color:#e91e63; font-size: 40px; margin-top:20%; text-shadow: 2px 2px 5px #000;">
+            Hold on... ❤️
+        </h1>`;
+
+        setTimeout(() => {
+            document.body.innerHTML = `<h1 style="color:#e91e63; font-size: 40px; margin-top:20%; text-shadow: 2px 2px 5px #000;">
+                I love you! 😍 Forever & Always! 💖
+            </h1>`;
+        }, 5000); // 5-second delay
+    }
+    </script>
+
+</body>
+</html>
